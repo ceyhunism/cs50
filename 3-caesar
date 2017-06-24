@@ -1,0 +1,80 @@
+/*
+https://javarush.ru/quests/lectures/questharvardcs50.level02.lecture08
+*/
+#include <iostream>
+#include <stdlib.h>
+#include <string.h>
+using namespace std;
+
+
+// get char and number in ASCII of 
+char caesar(char c, int key)
+{
+	int offset;
+	
+	if(isalpha(c))
+	{
+		if(islower(c))
+		{
+			offset = 97;
+		}
+		else if(isupper(c))
+		{
+			offset = 65;
+		}
+		else
+		{
+			return c;
+		}
+		
+		int cnum = (int) c - offset; // num of char in alph order
+		int nnum = (cnum + key) % 26; // num of encrypted char in alph order
+		char cipher = (char) (nnum + offset); // char in ASCII
+		return cipher;		
+	}
+	else
+	{
+		return c;
+	}	
+}
+
+int main(int argc, char** argv) 
+{
+	if(argc != 2)
+	{
+		cout << "Usage: ./caesar key\n";
+		cout << "Try again";
+		return 1;
+	}
+	
+	int key = atoi(argv[1]); // convert argv 1 to integer
+	
+	if(key == 0 ) // if user didnt input int 
+	{
+		cout << "Please input number";
+		return 1;
+	}
+	
+	string text;
+	do
+	{
+		cout << "Hi. Please enter your text: \n";
+		getline(cin, text); // text from user
+	}
+	while(text.length() == 0);
+	
+	cout << "Your text is: " << text << "\n";
+	
+	string cipher = ""; // empty array to store cypher
+	int len = text.length();
+	// cout << len << "\n";
+	// for each symbol from text
+	for(int i = 0; i < len; i++)
+	{
+		cipher += caesar(text[i], key);
+	}
+	
+	cout << "Caesar Cipher is: " << cipher;
+	
+	return 0;
+}
