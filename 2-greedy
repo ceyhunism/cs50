@@ -1,0 +1,38 @@
+/*
+https://javarush.ru/quests/lectures/questharvardcs50.level01.lecture19
+*/
+
+#include <iostream>
+#include <math.h>
+
+using namespace std;
+
+int main(int argc, char** argv) {
+	
+	float change;
+	
+	do
+	{
+		cout << "How much change is owed? ";
+		cin >> change;
+	}
+	while(change <= 0);
+	
+	int amount = (int)round(change * 100); // convert to cents
+	
+	int count = amount / 25;
+	int leftover = amount % 25;
+	
+	count += leftover / 10;
+	leftover %= 10;
+	
+	count += leftover / 5;
+	leftover %= 5;
+	
+	count += leftover;
+	
+	
+	cout << count;
+		
+	return 0;
+}
