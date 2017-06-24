@@ -1,0 +1,90 @@
+/*
+https://javarush.ru/quests/lectures/questharvardcs50.level02.lecture09
+*/
+#include <iostream>
+#include <string>
+
+using namespace std;
+
+char vigenere(char c, char k)
+{
+	int offset;
+	
+	if(isupper(k))
+	{
+		k -= 65;		
+	}
+	else if(islower(k))
+	{
+		k -= 97;
+	}
+	
+	if(islower(c))
+	{
+		offset = 97;
+	}
+	else if(isupper(c))
+	{
+		offset = 65;
+	}
+	
+	int cnum = (int) c - offset;
+	int nnum = (cnum + k) % 26;
+	char cipher = (char) (nnum + offset);
+	
+	return cipher;
+}
+
+int main(int argc, char** argv)
+{
+	if(argc != 2)
+	{
+		cout << "Usage: ./vigenere <key> \n";
+		return 1;
+	}
+	
+	string key = argv[1];
+	int key_len = key.length();
+	
+	for(int i = 0; i < key_len; i++)
+	{
+		if(!isalpha(key[i]))
+		{
+			cout << "Keyword must contain only letters A-Z and a-z \n";
+			return 1;
+		}
+	}
+	
+	string text;
+	do
+	{
+		cout << "Enter your plain text: ";
+		getline(cin, text); // text from user		
+	}
+	while(text.length() == 0);
+	
+	
+	int text_len = text.length();
+	
+	for(int i = 0; i < text_len; i++)
+	{
+		if(!isalpha(text[i]))
+		{
+			cout << "Text must contain only letters A-Z and a-z \n";
+			return 1;
+		}
+	}
+	
+	cout << "Your text: " << text << "\n";
+	
+	string cipher = "";
+	for(int i = 0; i < text_len; i++)
+	{
+		int k = i % key_len;
+		cipher += vigenere(text[i],key[k]);		
+	}
+	
+	cout << "Vigenere string: " << cipher << endl;
+	
+	return 0;
+}
