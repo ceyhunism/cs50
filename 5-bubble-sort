@@ -30,7 +30,7 @@ int main()
 	{
 		for(int j = 0; j < size - i - 1; j++)
 		{
-			if(array[j] > array[j+1]) // swipe
+			if(array[j] > array[j+1]) // swap
 			{
 				int temp = array[j];
 				array[j] = array[j+1];
